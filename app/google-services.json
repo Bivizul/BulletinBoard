@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "435373049324",
+    "project_id": "bulletinboard-9e2d2",
+    "storage_bucket": "bulletinboard-9e2d2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:435373049324:android:d06b2480b9174237b96cc9",
+        "android_client_info": {
+          "package_name": "com.bivizul.bulletinboard"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "435373049324-5oal05hv55d89uqs5hq5mb7o57pb8m3l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCeATCmFh3fspCmK55wglhqE7Nzhv4g71A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "435373049324-5oal05hv55d89uqs5hq5mb7o57pb8m3l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
