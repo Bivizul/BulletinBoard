@@ -2,6 +2,7 @@ package com.bivizul.bulletinboard
 
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
@@ -11,10 +12,12 @@ import com.bivizul.bulletinboard.dialoghelper.DialogConst
 import com.bivizul.bulletinboard.dialoghelper.DialogHelper
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     // lateinit - инициализировать после
+    private lateinit var tvAccount: TextView
     private lateinit var binding: ActivityMainBinding
     private val dialogHelper = DialogHelper(this)
     val mAuth = FirebaseAuth.getInstance()
@@ -25,6 +28,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val view = binding.root
         setContentView(view)
         init()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        uiUpdate(mAuth.currentUser)
     }
 
     private fun init() {
@@ -40,6 +48,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         toggle.syncState()
         // передача событий из NavigationView по нажатию в onNavigationItemSelected
         binding.navView.setNavigationItemSelectedListener(this)
+        tvAccount = binding.navView.getHeaderView(0).findViewById(R.id.tvAccountEmail)
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -64,9 +73,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
             R.id.id_sign_in -> {
                 dialogHelper.createSignDialog(DialogConst.SIGN_IN_STATE)
+                Toast.makeText(this, "Вы успешно вошли", Toast.LENGTH_LONG).show()
             }
             R.id.id_sign_out -> {
-                Toast.makeText(this, "Presed id_sign_out", Toast.LENGTH_LONG).show()
+                uiUpdate(null)
+                mAuth.signOut()
+                Toast.makeText(this, "Вы вышли из аккаунта", Toast.LENGTH_LONG).show()
             }
 
         }
@@ -75,5 +87,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         binding.drawerLayout.closeDrawer(GravityCompat.START)
 
         return true
+    }
+
+    fun uiUpdate(user: FirebaseUser?) {
+        tvAccount.text = if(user == null){
+            resources.getString(R.string.not_reg)
+        } else {
+            user.email
+        }
     }
 }

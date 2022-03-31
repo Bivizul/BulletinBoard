@@ -16,6 +16,8 @@ class DialogHelper(private val activity: MainActivity) {
         val binding = SignDialogBinding.inflate(activity.layoutInflater)
         val view = binding.root
 
+        builder.setView(view)
+
         if (index == DialogConst.SIGN_UP_STATE) {
             binding.tvSignTitle.text = activity.resources.getString(R.string.ac_sign_up)
             binding.btSignUpIn.text = activity.resources.getString(R.string.sign_up_action)
@@ -26,18 +28,27 @@ class DialogHelper(private val activity: MainActivity) {
             binding.btForgetP.visibility = View.VISIBLE
         }
 
+        val dialog = builder.create()
+
         binding.btSignUpIn.setOnClickListener {
+            // закрывает диалог после нажатия
+            dialog.dismiss()
+
             if (index == DialogConst.SIGN_UP_STATE) {
+                // регистрация
                 accHelper.signUpWithEmail(
                     binding.edSignEmail.text.toString(),
                     binding.edSignPassword.text.toString()
                 )
             } else {
-                TODO()
+                // вход
+                accHelper.signInWithEmail(
+                    binding.edSignEmail.text.toString(),
+                    binding.edSignPassword.text.toString()
+                )
             }
         }
 
-        builder.setView(view)
-        builder.show()
+        dialog.show()
     }
 }
