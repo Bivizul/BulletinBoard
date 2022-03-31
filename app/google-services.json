@@ -14,11 +14,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "435373049324-o7e26kv2q3gp5nde3h5kepfd8cvsuh5f.apps.googleusercontent.com",
+          "client_id": "435373049324-55rkfm728liv7ea14rv7ibovhj7916ct.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.bivizul.bulletinboard",
-            "certificate_hash": "017bcfe98508039923d7e15531277acec97c9609"
+            "certificate_hash": "a53e8ba613bb4c79476d1487406a57a942acff3e"
           }
         },
         {
