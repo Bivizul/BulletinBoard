@@ -73,7 +73,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
             R.id.id_sign_in -> {
                 dialogHelper.createSignDialog(DialogConst.SIGN_IN_STATE)
-                Toast.makeText(this, "Вы успешно вошли", Toast.LENGTH_LONG).show()
             }
             R.id.id_sign_out -> {
                 uiUpdate(null)

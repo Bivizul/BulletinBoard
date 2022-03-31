@@ -15,15 +15,19 @@
     <string name="close">Close</string>
     <string name="not_reg">Войдите или зарегестрируйтесь!</string>
     <!-- Sign Dialog -->
+    <string name="email_reset_password_was_sent">Письмо для сброса пароля было отправленно на
+        вашу электронную почту</string>
+    <string name="dialog_reset_email_message">Для восстановления пароля,укажите Ваш Email адресс!</string>
     <string name="email_hint">Email</string>
     <string name="password_hint">Password</string>
     <string name="sign_up_action">Зарегестрироваться</string>
     <string name="sign_in_action">Войти</string>
     <string name="forget_password">Забыли пароль?</string>
     <string name="sign_up_error">Не удалось зарегестрироваться</string>
+    <string name="sign_in_error">Не удалось войти</string>
     <string name="send_verification_email_error">Не удалось отправить email для подтверждения</string>
     <string name="send_verification_done">На вашу почту была отправленна ссылка для подтверждения
         вашего аккаунта, пожалуйста подтвердите ваш аккаунт!</string>
-    <string name="sign_in_error">Не удалось войти</string>
+
 
 </resources>
