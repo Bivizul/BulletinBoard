@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "435373049324-o7e26kv2q3gp5nde3h5kepfd8cvsuh5f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.bivizul.bulletinboard",
+            "certificate_hash": "017bcfe98508039923d7e15531277acec97c9609"
+          }
+        },
+        {
           "client_id": "435373049324-5oal05hv55d89uqs5hq5mb7o57pb8m3l.apps.googleusercontent.com",
           "client_type": 3
         }

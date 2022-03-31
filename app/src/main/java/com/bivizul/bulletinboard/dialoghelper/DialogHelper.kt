@@ -10,7 +10,7 @@ import com.bivizul.bulletinboard.databinding.SignDialogBinding
 
 class DialogHelper(private val activity: MainActivity) {
 
-    private val accHelper = AccountHelper(activity)
+    val accHelper = AccountHelper(activity)
 
     fun createSignDialog(index: Int) {
         val builder = AlertDialog.Builder(activity)
@@ -22,11 +22,15 @@ class DialogHelper(private val activity: MainActivity) {
 
         val dialog = builder.create()
 
+        // слушатели на кнопки
         binding.btSignUpIn.setOnClickListener {
             setOnCLickSignUpIn(index, binding, dialog)
         }
         binding.btForgetP.setOnClickListener {
             setOnCLickResetPassword(binding, dialog)
+        }
+        binding.btGoogleSignIn.setOnClickListener {
+            accHelper.singInWithGoogle()
         }
 
         dialog.show()

@@ -1,6 +1,8 @@
 package com.bivizul.bulletinboard
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.widget.TextView
 import android.widget.Toast
@@ -10,6 +12,9 @@ import androidx.core.view.GravityCompat
 import com.bivizul.bulletinboard.databinding.ActivityMainBinding
 import com.bivizul.bulletinboard.dialoghelper.DialogConst
 import com.bivizul.bulletinboard.dialoghelper.DialogHelper
+import com.bivizul.bulletinboard.dialoghelper.GoogleAccConst
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.common.api.ApiException
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -28,6 +33,24 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val view = binding.root
         setContentView(view)
         init()
+    }
+
+    // получаем результат запроса входа через Google
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == GoogleAccConst.GOOGLE_SIGN_IN_REQUEST_CODE) {
+            //Log.d("MyLog", "Sign In result")
+            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
+            try {
+                val account = task.getResult(ApiException::class.java)
+                if(account != null){
+                    Log.d("MyLog", "Api error: don't 0")
+                    dialogHelper.accHelper.signInFirebaseWithGoogle(account.idToken!!)
+                }
+            }catch (e:ApiException){
+                Log.d("MyLog", "Api error: ${e.message}")
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data)
     }
 
     override fun onStart() {
@@ -89,7 +112,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     fun uiUpdate(user: FirebaseUser?) {
-        tvAccount.text = if(user == null){
+        tvAccount.text = if (user == null) {
             resources.getString(R.string.not_reg)
         } else {
             user.email

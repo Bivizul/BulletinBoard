@@ -47,6 +47,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth:21.0.3'
     implementation 'com.google.firebase:firebase-database:20.0.4'
     implementation 'com.google.firebase:firebase-storage:20.0.1'
+    implementation 'com.google.android.gms:play-services-auth:20.1.0'
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.6.10'
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
