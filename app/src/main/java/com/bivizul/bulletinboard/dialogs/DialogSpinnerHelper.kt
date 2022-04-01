@@ -14,18 +14,19 @@ class DialogSpinnerHelper {
     // создаем диалог с выбором
     fun showSpinnerDialog(context: Context, list: ArrayList<String>) {
         val builder = AlertDialog.Builder(context)
+        val dialog = builder.create()
         val rootView = LayoutInflater.from(context).inflate(R.layout.spinner_layout, null)
-        val adapter = RcViewDialogSpinnerAdapter()
+        val adapter = RcViewDialogSpinnerAdapter(context, dialog)
         val rcView = rootView.findViewById<RecyclerView>(R.id.rcSpView)
         val sv = rootView.findViewById<SearchView>(R.id.svSpinner)
         // укажем как будет выглядеть rcView
         rcView.layoutManager = LinearLayoutManager(context)
         // присваеваем rcView созданный адаптер
         rcView.adapter = adapter
-        builder.setView(rootView)
+        dialog.setView(rootView)
         adapter.updateAdapter(list)
         setSearchViewListener(adapter, list, sv)
-        builder.show()
+        dialog.show()
     }
 
     // слушатель по поиску

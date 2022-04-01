@@ -1,13 +1,17 @@
 package com.bivizul.bulletinboard.dialogs
 
+import android.app.AlertDialog
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bivizul.bulletinboard.R
+import com.bivizul.bulletinboard.act.EditAdsAct
 
-class RcViewDialogSpinnerAdapter : RecyclerView.Adapter<RcViewDialogSpinnerAdapter.SpViewHolder>() {
+class RcViewDialogSpinnerAdapter(var context: Context, var dialog: AlertDialog) :
+    RecyclerView.Adapter<RcViewDialogSpinnerAdapter.SpViewHolder>() {
 
     private val mainList = ArrayList<String>()
 
@@ -19,7 +23,7 @@ class RcViewDialogSpinnerAdapter : RecyclerView.Adapter<RcViewDialogSpinnerAdapt
             parent,
             false
         )
-        return SpViewHolder(view)
+        return SpViewHolder(view, context,dialog)
     }
 
     // подключаем к элементу текст и т.д.
@@ -33,10 +37,24 @@ class RcViewDialogSpinnerAdapter : RecyclerView.Adapter<RcViewDialogSpinnerAdapt
     }
 
     // будет создаваться столько штук,сколько есть элементов
-    class SpViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class SpViewHolder(itemView: View, var context: Context, var dialog: AlertDialog) : RecyclerView.ViewHolder(itemView),
+        View.OnClickListener {
+
+        private var itemText = ""
+
         fun setData(text: String) {
             val tvSpItem = itemView.findViewById<TextView>(R.id.tvSpItem)
             tvSpItem.text = text
+            itemText = text
+            // слушает нажатие на весь item
+            itemView.setOnClickListener(this)
+        }
+
+        // Запустится при нажатии на элемент из списка
+        override fun onClick(view: View?) {
+            (context as EditAdsAct).binding.tvSelectCountry.text = itemText
+            dialog.dismiss()
+
         }
     }
 
