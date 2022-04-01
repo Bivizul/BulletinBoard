@@ -32,11 +32,13 @@ class AccountHelper(private val activity: MainActivity) {
                             val exception = task.exception as FirebaseAuthUserCollisionException
                             //Log.d("MyLog","Exception: ${exception.errorCode}")
                             if (exception.errorCode == FirebaseAuthConstants.ERROR_EMAIL_ALREADY_IN_USE) {
-                                Toast.makeText(
+                               /* Toast.makeText(
                                     activity,
                                     FirebaseAuthConstants.ERROR_EMAIL_ALREADY_IN_USE,
                                     Toast.LENGTH_LONG
-                                ).show()
+                                ).show()*/
+
+                                linkEmailToG(email, password)
                             }
                         } else if (task.exception is FirebaseAuthInvalidCredentialsException) {
                             val exception =
@@ -98,6 +100,29 @@ class AccountHelper(private val activity: MainActivity) {
                     }
                 }
         }
+    }
+
+    // присоединяем емайл к гугл аккаунту
+    private fun linkEmailToG(email: String, password: String) {
+        val credential = EmailAuthProvider.getCredential(email, password)
+        if(activity.mAuth.currentUser != null){
+            activity.mAuth.currentUser?.linkWithCredential(credential)?.addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Toast.makeText(
+                        activity,
+                        activity.resources.getString(R.string.link_done),
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            }
+        } else {
+            Toast.makeText(
+                activity,
+                activity.resources.getString(R.string.enter_to_g),
+                Toast.LENGTH_LONG
+            ).show()
+        }
+
     }
 
     // создаем клиента, запрашиваем токен и емайл
