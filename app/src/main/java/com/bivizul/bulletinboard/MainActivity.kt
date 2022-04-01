@@ -3,12 +3,14 @@ package com.bivizul.bulletinboard
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
 import android.view.MenuItem
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
+import com.bivizul.bulletinboard.act.EditAdsAct
 import com.bivizul.bulletinboard.databinding.ActivityMainBinding
 import com.bivizul.bulletinboard.dialoghelper.DialogConst
 import com.bivizul.bulletinboard.dialoghelper.DialogHelper
@@ -35,6 +37,21 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         init()
     }
 
+    // Прослушиваем нажатия на элементы из меню
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if(item.itemId == R.id.id_new_ads){
+            val intent = Intent(this, EditAdsAct::class.java)
+            startActivity(intent)
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    // Добавляем меню NEW на тулбар
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main_menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
     // получаем результат запроса входа через Google
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == GoogleAccConst.GOOGLE_SIGN_IN_REQUEST_CODE) {
@@ -42,11 +59,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
                 val account = task.getResult(ApiException::class.java)
-                if(account != null){
+                if (account != null) {
                     Log.d("MyLog", "Api error: don't 0")
                     dialogHelper.accHelper.signInFirebaseWithGoogle(account.idToken!!)
                 }
-            }catch (e:ApiException){
+            } catch (e: ApiException) {
                 Log.d("MyLog", "Api error: ${e.message}")
             }
         }
@@ -59,6 +76,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     private fun init() {
+        // Указываем тулбар по умолчанию
+        setSupportActionBar(binding.mainContent.toolbar)
+
         val toggle = ActionBarDrawerToggle(
             this,
             binding.drawerLayout,
@@ -100,6 +120,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.id_sign_out -> {
                 uiUpdate(null)
                 mAuth.signOut()
+                dialogHelper.accHelper.singOutGoogle()
                 Toast.makeText(this, "Вы вышли из аккаунта", Toast.LENGTH_LONG).show()
             }
 
