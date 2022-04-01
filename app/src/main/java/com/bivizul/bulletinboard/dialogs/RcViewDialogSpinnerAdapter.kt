@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bivizul.bulletinboard.R
 import com.bivizul.bulletinboard.act.EditAdsAct
 
-class RcViewDialogSpinnerAdapter(var context: Context, var dialog: AlertDialog) :
+class RcViewDialogSpinnerAdapter(var tvSelection: TextView, var dialog: AlertDialog) :
     RecyclerView.Adapter<RcViewDialogSpinnerAdapter.SpViewHolder>() {
 
     private val mainList = ArrayList<String>()
@@ -23,7 +23,7 @@ class RcViewDialogSpinnerAdapter(var context: Context, var dialog: AlertDialog) 
             parent,
             false
         )
-        return SpViewHolder(view, context,dialog)
+        return SpViewHolder(view,tvSelection, dialog)
     }
 
     // подключаем к элементу текст и т.д.
@@ -37,7 +37,8 @@ class RcViewDialogSpinnerAdapter(var context: Context, var dialog: AlertDialog) 
     }
 
     // будет создаваться столько штук,сколько есть элементов
-    class SpViewHolder(itemView: View, var context: Context, var dialog: AlertDialog) : RecyclerView.ViewHolder(itemView),
+    class SpViewHolder(itemView: View, var tvSelection: TextView, var dialog: AlertDialog) :
+        RecyclerView.ViewHolder(itemView),
         View.OnClickListener {
 
         private var itemText = ""
@@ -52,9 +53,8 @@ class RcViewDialogSpinnerAdapter(var context: Context, var dialog: AlertDialog) 
 
         // Запустится при нажатии на элемент из списка
         override fun onClick(view: View?) {
-            (context as EditAdsAct).binding.tvSelectCountry.text = itemText
+            tvSelection.text = itemText
             dialog.dismiss()
-
         }
     }
 

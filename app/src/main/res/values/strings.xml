@@ -34,5 +34,7 @@
     <!-- Edit Activity -->
     <string name="select_country">* Выберите страну</string>
     <string name="select_city">* Выберите город</string>
+    <string name="no_country_selected">Страна не выбрана</string>
+    <string name="no_result">Нет результата</string>
 
 </resources>
