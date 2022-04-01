@@ -1,6 +1,7 @@
 package com.bivizul.bulletinboard.utils
 
 import android.content.Context
+import com.bivizul.bulletinboard.R
 import org.json.JSONObject
 import java.io.IOException
 import java.io.InputStream
@@ -26,18 +27,36 @@ object CityHelper {
             // получаем название стран
             val countriesNames = jsonObject.names()
             // проверяем на null и добавляем странны в tempArray
-            if(countriesNames != null){
-                for(n in 0 until countriesNames.length()){
+            if (countriesNames != null) {
+                for (n in 0 until countriesNames.length()) {
                     tempArray.add(countriesNames.getString(n))
                 }
             }
-
-
-
-
         } catch (e: IOException) {
-
         }
         return tempArray
+    }
+
+    // фильтр
+    fun filterListData(list: ArrayList<String>, searchText: String?): ArrayList<String> {
+        val tempList = ArrayList<String>()
+        tempList.clear()
+        if(searchText == null){
+            tempList.add("No result")
+            return tempList
+        }
+        // фильтруем по символам
+        for (selection: String in list) {
+            // сравниваем с началом ввода(все маленькими буквами)
+            if (selection.lowercase().startsWith(searchText.lowercase())) {
+                tempList.add(selection)
+            }
+        }
+        if (tempList.size == 0) {
+            tempList.add("No result")
+        }
+
+        // вернем отфильтрованный список
+        return tempList
     }
 }

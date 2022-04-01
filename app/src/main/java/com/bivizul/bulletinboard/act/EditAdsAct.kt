@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import com.bivizul.bulletinboard.databinding.ActivityEditAdsBinding
+import com.bivizul.bulletinboard.dialogs.DialogSpinnerHelper
 import com.bivizul.bulletinboard.utils.CityHelper
 
 class EditAdsAct : AppCompatActivity() {
@@ -16,15 +17,22 @@ class EditAdsAct : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        // создаем адаптер для подключения к спиннеру
+/*        // создаем адаптер для подключения к спиннеру
         val adapter = ArrayAdapter(
             this,
             android.R.layout.simple_spinner_item,
             CityHelper.getAllCountries(this)
         )
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-
         // подключаем адаптер к спиннеру
-        binding.spCountry.adapter = adapter
+        binding.spCountry.adapter = adapter*/
+
+        // список для передачи в диалог
+        val listCountry = CityHelper.getAllCountries(this)
+
+        // запускаем диалог с переданным списком
+        val dialog = DialogSpinnerHelper()
+        dialog.showSpinnerDialog(this,listCountry)
+
     }
 }
