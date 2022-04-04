@@ -24,10 +24,10 @@ object ImagePicker {
     }
 
 
-    /*fun getImages(context: AppCompatActivity){
+/*    fun getImages(imageCounter:Int){
         val options = Options().apply{
             ratio = Ratio.RATIO_AUTO                           //Image/video соотношение захвата
-            count = 3                                          //Количество изображений для ограничения выбора count
+            count = imageCounter                               //Количество изображений для ограничения выбора count
             spanCount = 4                                      //Количество столбцов в сетке
             path = "Pix/Camera"                                //Пользовательский путь для хранилища мультимедиа
             isFrontFacing = false                              //Фронтовая камера при запуске

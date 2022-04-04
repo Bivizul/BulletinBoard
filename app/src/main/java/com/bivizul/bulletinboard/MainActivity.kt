@@ -10,7 +10,7 @@ import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
-import com.bivizul.bulletinboard.act.EditAdsAct
+import com.bivizul.bulletinboard.act.EditAdsActivity
 import com.bivizul.bulletinboard.databinding.ActivityMainBinding
 import com.bivizul.bulletinboard.dialoghelper.DialogConst
 import com.bivizul.bulletinboard.dialoghelper.DialogHelper
@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     // Прослушиваем нажатия на элементы из меню
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if(item.itemId == R.id.id_new_ads){
-            val intent = Intent(this, EditAdsAct::class.java)
+            val intent = Intent(this, EditAdsActivity::class.java)
             startActivity(intent)
         }
         return super.onOptionsItemSelected(item)

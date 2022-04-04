@@ -8,18 +8,20 @@ import androidx.appcompat.app.AppCompatActivity
 import com.bivizul.bulletinboard.R
 import com.bivizul.bulletinboard.databinding.ActivityEditAdsBinding
 import com.bivizul.bulletinboard.dialogs.DialogSpinnerHelper
+import com.bivizul.bulletinboard.fragments.CloseInterfaceFragment
+import com.bivizul.bulletinboard.fragments.ImageListFragment
 import com.bivizul.bulletinboard.utils.CityHelper
+import com.bivizul.bulletinboard.utils.ImagePicker
 import com.bivizul.bulletinboard.utils.ImagePicker.options
 import io.ak1.pix.helpers.PixBus
 import io.ak1.pix.helpers.PixEventCallback
-import io.ak1.pix.helpers.addPixToActivity
 import io.ak1.pix.helpers.pixFragment
 
-class EditAdsAct : AppCompatActivity() {
+class EditAdsActivity : AppCompatActivity(),CloseInterfaceFragment {
 
     lateinit var binding: ActivityEditAdsBinding
     private val dialog = DialogSpinnerHelper()
-    private val pixFragment = pixFragment(options)
+//    private val pixFragment = pixFragment(options)
 
     init {
 
@@ -44,6 +46,12 @@ class EditAdsAct : AppCompatActivity() {
         onClickGetImages(view)
 
     }
+
+    // При закрытии фрагмента покажем scrollViewMain
+    override fun onCloseFragment() {
+        binding.scrollViewMain.visibility = View.VISIBLE
+    }
+
     // ???
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -91,13 +99,22 @@ class EditAdsAct : AppCompatActivity() {
     }
 
     fun onClickGetImages(view: View) {
-        binding.imageButton3.setOnClickListener {
-            addPixToActivity(R.id.activity_edit_ads, options) {
+        binding.ibAddPhoto.setOnClickListener {
+            // Прячем scrollViewMain
+            binding.scrollViewMain.visibility = View.GONE
+            // Создаем ФМ
+            val fm = supportFragmentManager.beginTransaction()
+            // Заменяем конетейнер place_holder на фрагмент ImageListFragment
+            fm.replace(R.id.place_holder,ImageListFragment(this))
+            // Применяем изменения
+            fm.commit()
+
+            /*addPixToActivity(R.id.place_holder, options) {
                 when (it.status) {
                     PixEventCallback.Status.SUCCESS -> PixBus.onBackPressedEvent()
                     PixEventCallback.Status.BACK_PRESSED -> super.onBackPressed()
                 }
-            }
+            }*/
 
         }
 
