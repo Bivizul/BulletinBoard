@@ -11,7 +11,7 @@ android {
 
     defaultConfig {
         applicationId "com.bivizul.bulletinboard"
-        minSdk 19
+        minSdk 21
         targetSdk 32
         versionCode 1
         versionName "1.0"
@@ -49,6 +49,10 @@ dependencies {
     implementation 'com.google.firebase:firebase-storage:20.0.1'
     implementation 'com.google.android.gms:play-services-auth:20.1.0'
     implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.6.10'
+
+    //implementation 'com.fxn769:pix:1.5.4'
+    implementation 'io.ak1.pix:piximagepicker:1.6.3'
+    implementation "androidx.viewpager2:viewpager2:1.0.0"
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

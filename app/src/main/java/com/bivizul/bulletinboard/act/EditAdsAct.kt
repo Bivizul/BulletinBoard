@@ -1,5 +1,6 @@
 package com.bivizul.bulletinboard.act
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -8,11 +9,17 @@ import com.bivizul.bulletinboard.R
 import com.bivizul.bulletinboard.databinding.ActivityEditAdsBinding
 import com.bivizul.bulletinboard.dialogs.DialogSpinnerHelper
 import com.bivizul.bulletinboard.utils.CityHelper
+import com.bivizul.bulletinboard.utils.ImagePicker.options
+import io.ak1.pix.helpers.PixBus
+import io.ak1.pix.helpers.PixEventCallback
+import io.ak1.pix.helpers.addPixToActivity
+import io.ak1.pix.helpers.pixFragment
 
 class EditAdsAct : AppCompatActivity() {
 
     lateinit var binding: ActivityEditAdsBinding
     private val dialog = DialogSpinnerHelper()
+    private val pixFragment = pixFragment(options)
 
     init {
 
@@ -34,7 +41,19 @@ class EditAdsAct : AppCompatActivity() {
         binding.spCountry.adapter = adapter*/
         onClickSelectCountry(view)
         onClickSelectCity(view)
+        onClickGetImages(view)
 
+    }
+    // ???
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        pixFragment(options){
+            when (it.status) {
+                PixEventCallback.Status.SUCCESS -> PixBus.onBackPressedEvent()
+                PixEventCallback.Status.BACK_PRESSED -> super.onBackPressed()
+
+            }
+        }
     }
 
     // All OnCLick
@@ -69,6 +88,19 @@ class EditAdsAct : AppCompatActivity() {
 
 
         }
+    }
+
+    fun onClickGetImages(view: View) {
+        binding.imageButton3.setOnClickListener {
+            addPixToActivity(R.id.activity_edit_ads, options) {
+                when (it.status) {
+                    PixEventCallback.Status.SUCCESS -> PixBus.onBackPressedEvent()
+                    PixEventCallback.Status.BACK_PRESSED -> super.onBackPressed()
+                }
+            }
+
+        }
+
     }
 
 
